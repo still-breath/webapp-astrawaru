@@ -1,0 +1,123 @@
+.post-progress-page {
+  display: flex; /* Sidebar and main content layout */
+  height: 100vh;
+
+  .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    margin-left: 80px;
+
+    .form-container {
+      margin-top: 50px;
+      background-color: #fef7ff; /* Background color */
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+
+      h2 {
+        font-size: 24px;
+        color: #764ba2;
+        margin-bottom: 16px;
+        text-align: center;
+      }
+
+      h3 {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 12px;
+      }
+
+      .pkb-details {
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #e8def8;
+        border-radius: 8px;
+        background-color: #fff;
+
+        p {
+          margin: 5px 0;
+          font-size: 14px;
+          color: #555;
+
+          strong {
+            color: #333;
+          }
+        }
+      }
+
+      .data-form {
+        .form-group {
+          margin-bottom: 20px;
+
+          label {
+            display: block;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 8px;
+          }
+
+          input {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            color: #555;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+
+            &:focus {
+              border-color: #764ba2;
+              outline: none;
+            }
+          }
+          select {
+            width: 101.5%;
+            padding: 10px;
+            font-size: 14px;
+            color: #555;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+
+            &:focus {
+              border-color: #764ba2;
+              outline: none;
+            }
+          }
+        }
+
+        .submit-button {
+          display: block;
+          width: 50%;
+          max-width: 200px;
+          margin: 0 auto;
+          padding: 10px 20px;
+          background-color: #764ba2;
+          color: white;
+          font-size: 16px;
+          font-weight: bold;
+          text-align: center;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+
+          &:hover {
+            background-color: #5a3d8a;
+          }
+
+          &:active {
+            transform: scale(0.98);
+          }
+        }
+
+        .message {
+          margin-top: 20px;
+          font-size: 14px;
+          color: #764ba2;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

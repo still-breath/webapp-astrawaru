@@ -1,0 +1,77 @@
+.tambah-data-sp {
+  display: flex;
+
+  .main-content {
+    flex: 1;
+    padding: 20px;
+
+    .form-container {
+      max-width: 500px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+      h2 {
+        text-align: center;
+        color: #764ba2;
+        margin-bottom: 20px;
+      }
+
+      .form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+
+        .form-group {
+          display: flex;
+          margin-right: 20px;
+
+          flex-direction: column;
+          label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+          }
+          input {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            &:focus {
+              outline: none;
+              border-color: #764ba2;
+              box-shadow: 0 0 4px rgba(118, 75, 162, 0.5);
+            }
+          }
+        }
+
+        .submit-button {
+          padding: 10px;
+          background-color: #764ba2;
+          color: #fff;
+          font-weight: bold;
+          font-size: 16px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          &:hover {
+            background-color: #5a3d8a;
+          }
+          &:active {
+            transform: scale(0.98);
+          }
+        }
+
+        .message {
+          text-align: center;
+          font-weight: bold;
+          color: green;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}

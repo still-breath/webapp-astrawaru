@@ -1,0 +1,75 @@
+.navbar {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+    background-color: #FEF7FF;
+    position: fixed;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    padding: 0;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ccc;
+
+    .wrapper {
+        width: 100%;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .left {
+            display: flex;
+            align-items: center;
+            flex: 1;
+
+            .logo {
+                position: absolute;
+                left: 0;
+                max-height: 40px;
+                width: auto;
+                margin-left: 10px;
+                z-index: 101;
+            }
+        }
+
+        .items {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+
+            .item {
+                display: flex;
+                align-items: center;
+                margin-left: 20px;
+                cursor: pointer;
+                position: relative; // Added for dropdown positioning
+
+                .dropdown-menu {
+                    position: absolute;
+                    top: 35px;
+                    right: 1px;
+                    background-color: white;
+                    z-index: 999;
+
+                    button {
+                        background: none;
+                        padding: 8px 12px;
+                        cursor: pointer;
+                        font-size: 14px;
+                        color: black;
+
+                        &:hover {
+                            color: white;
+                            background-color: #764ba2;
+                        }
+                    }
+                    }
+
+            }
+        }
+    }
+}

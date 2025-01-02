@@ -1,0 +1,70 @@
+.detail-progress-page {
+  display: flex;
+  height: 100vh;
+
+  .main-content {
+    flex: 1;
+    padding: 16px;
+    margin-left: 80px;
+
+    .detail-container {
+      margin-top: 50px;
+      background-color: #fef7ff;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+
+      h2 {
+        color: #764ba2;
+        margin-bottom: 20px;
+      }
+
+      .progress-details {
+        p {
+          font-size: 14px;
+          margin-bottom: 10px;
+
+          strong {
+            color: #333;
+          }
+
+          input,
+          select {
+            margin-left: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+
+            &:focus {
+              border-color: #764ba2;
+            }
+          }
+
+          button {
+            margin-left: 10px;
+            background-color: #764ba2;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+
+            &:hover {
+              background-color: #5a3d8a;
+            }
+
+            &:active {
+              transform: scale(0.98);
+            }
+          }
+        }
+      }
+
+      .message {
+        margin-top: 20px;
+        color: green;
+        font-weight: bold;
+      }
+    }
+  }
+}

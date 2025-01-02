@@ -1,0 +1,118 @@
+// Container for Register Page
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5; /* Light background color */
+}
+
+// Register Form Styling
+.register-form {
+  background-color: #ffffff; /* White background */
+  padding: 40px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: auto;
+}
+
+h2 {
+  color: #3f51b5; /* Primary color */
+  font-size: 24px;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 15px 10px;
+  font-size: 16px;
+  color: #333;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 30px; /* Rounded corners for inputs */
+  outline: none;
+
+  &::placeholder {
+    color: #888;
+  }
+
+  &:focus {
+    border-color: #3f51b5; /* Primary color */
+  }
+} 
+
+select {
+  width: 105%;
+  padding: 15px 10px;
+  font-size: 16px;
+  color: #333;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 30px; /* Rounded corners for inputs */
+  outline: none;
+  padding: 12px 10px;
+
+  &::placeholder {
+    color: #888;
+  }
+
+  &:focus {
+    border-color: #3f51b5; /* Primary color */
+  }
+}
+
+label {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  background-color: #ffffff; /* White background */
+  padding: 0 5px;
+  font-size: 14px;
+  color: #555;
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #3f51b5; /* Primary color */
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: darken(#3f51b5, 10%); /* Darken the primary color */
+  }
+}
+
+// Message below the button
+.message {
+  font-size: 14px;
+  color: #28a745; /* Success color */
+  margin-top: 10px;
+}
+
+// Link to Login Page
+.secondary-button {
+  margin-top: 10px;
+  color: #3f51b5; /* Primary color */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

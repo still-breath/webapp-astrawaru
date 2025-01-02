@@ -1,0 +1,25 @@
+.home {
+    display: flex;
+
+    .homeContainer {
+        flex: 55;
+        background-color: #ffffff;
+        padding-top: 70px;
+        padding-left: 100px;
+        padding-right: 20px;
+
+        .halo{
+            font-size: 18px; 
+            font-weight: bold; 
+            margin-left: 25px; 
+            color: #005AAB;
+        }
+
+        .listContainer {
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+    }
+}

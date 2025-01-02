@@ -1,0 +1,81 @@
+.masterdata {
+    display: flex;
+    background-color: #f5f5f5;
+    height: 100vh;
+
+    .masterdataContainer {
+        flex: 55;
+        padding-top: 70px;
+        padding-left: 100px;
+        padding-right: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    
+
+        .MuiDataGrid-root {
+            background-color: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .MuiDataGrid-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tableActionsBottom {
+            display: flex;
+            justify-content: flex-start;
+            padding: 10px 16px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .deleteButton {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            &:disabled {
+                background-color: #cccccc;
+                cursor: not-allowed;
+            }
+
+            &:hover:not(:disabled) {
+                background-color: #ff3333;
+            }
+
+            span {
+                display: inline-block;
+            }
+        }
+    }
+    
+    .detailButton {
+        padding: 5px 10px;
+        color: white;
+        background-color: #3f51b5;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: #303f9f;
+        }
+    }
+}
