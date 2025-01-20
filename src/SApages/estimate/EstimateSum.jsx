@@ -68,17 +68,35 @@ const EstimateSum = () => {
   // Submit Data ke /api/summary
   const handleSubmit = async () => {
     try {
-      const layanan = selectedServices.map((s) => ({ namaLayanan: s.name, quantity: s.quantity }));
-      const sparepart = selectedSpareparts.map((sp) => ({ namaPart: sp.name, quantity: sp.quantity }));
+      const layanan = selectedServices.map((s) => ({
+        namaLayanan: s.name,
+        quantity: s.quantity,
+      }));
+      const sparepart = selectedSpareparts.map((sp) => ({
+        namaPart: sp.name,
+        quantity: sp.quantity,
+      }));
 
-      const body = { noPkb: selectedPkb, layanan, sparepart };
+      // Payload untuk POST ke summary
+      const summaryPayload = {
+        noPkb: selectedPkb,
+        layanan,
+        sparepart,
+      };
 
-      const response = await axios.post("/api/summary", body);
-      setSummary(response.data.summaries);
+      // Kirim data ke summary
+      const response = await axios.post("/api/summary", summaryPayload);
+      setSummary(response.data.summaries); // Simpan respons summary
+
+      // Reset state setelah menyimpan
+      setSelectedServices([]);
+      setSelectedSpareparts([]);
+      setSummary(null);
+
       alert("Summary berhasil disimpan!");
     } catch (error) {
-      console.error("Error saving data:", error);
-      alert("Gagal menyimpan data. Cek log untuk detail.");
+      console.error("Error saving summary:", error);
+      alert("Terjadi kesalahan saat menyimpan data.");
     }
   };
 

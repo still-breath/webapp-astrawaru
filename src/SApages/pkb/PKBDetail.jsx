@@ -11,31 +11,27 @@ const PKBDetail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchPkbByNoPkb = async () => {
+    const fetchPkb = async () => {
       try {
-        // Step 1: Fetch all PKB data
-        const response = await axios.get("/api/pkb");
-        const allPkbs = response.data.pkbs || [];
+        // Fetch PKB berdasarkan noPkb
+        const pkbResponse = await axios.get(`/api/pkb?noPkb=${noPkb}`);
+        const pkb = pkbResponse.data.pkbs?.find((item) => item.noPkb === noPkb);
 
-        // Step 2: Find the _id that matches the noPkb
-        const pkb = allPkbs.find((item) => item.noPkb === noPkb);
-
-        if (pkb && pkb._id) {
-          // Step 3: Fetch detailed data using the _id
-          const detailResponse = await axios.get(`/api/pkb/${pkb._id}`);
-          setPkbDetail(detailResponse.data.pkb);
-        } else {
-          setPkbDetail(null); // No matching PKB found
+        if (!pkb) {
+          setPkbDetail(null); // Jika PKB tidak ditemukan
+          return;
         }
+
+        setPkbDetail(pkb);
       } catch (error) {
-        console.error("Error fetching PKB detail:", error);
+        console.error("Error fetching PKB data:", error);
         setPkbDetail(null);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchPkbByNoPkb();
+    fetchPkb();
   }, [noPkb]);
 
   if (loading) {
@@ -43,7 +39,7 @@ const PKBDetail = () => {
   }
 
   if (!pkbDetail) {
-    return <p>Data not found.</p>;
+    return <p>Data PKB tidak ditemukan.</p>;
   }
 
   const {
@@ -53,12 +49,13 @@ const PKBDetail = () => {
     keluhan,
     namaMekanik,
     namaSa,
-    layanan = [],
-    spareparts = [],
     responsMekanik,
     customer = {},
     vehicle = {},
+    summary = {},
   } = pkbDetail;
+
+  const { layanan = [], sparepart = [] } = summary;
 
   return (
     <div className="pkb-detail-page">
@@ -86,7 +83,6 @@ const PKBDetail = () => {
                 <p><strong>Tipe:</strong> {vehicle.tipe || "-"}</p>
                 <p><strong>Tahun:</strong> {vehicle.tahun || "-"}</p>
                 <p><strong>Produk:</strong> {vehicle.produk || "-"}</p>
-                <p><strong>Kilometer:</strong> {vehicle.kilometer || "-"}</p>
               </div>
             </div>
 
@@ -119,7 +115,8 @@ const PKBDetail = () => {
                   <ul>
                     {layanan.map((service) => (
                       <li key={service._id}>
-                        {service.namaLayanan} - Rp {service.harga.toLocaleString()}
+                        {service.namaLayanan} - Rp {service.harga.toLocaleString()} x{" "}
+                        {service.quantity} = Rp {service.total.toLocaleString()}
                       </li>
                     ))}
                   </ul>
@@ -131,12 +128,12 @@ const PKBDetail = () => {
               {/* Spareparts */}
               <div className="detail-section">
                 <h3>Spareparts</h3>
-                {spareparts.length > 0 ? (
+                {sparepart.length > 0 ? (
                   <ul>
-                    {spareparts.map((part) => (
+                    {sparepart.map((part) => (
                       <li key={part._id}>
-                        {part.namaPart} - {part.number} - Rp{" "}
-                        {part.harga.toLocaleString()}
+                        {part.namaPart} - Rp {part.harga.toLocaleString()} x{" "}
+                        {part.quantity} = Rp {part.total.toLocaleString()}
                       </li>
                     ))}
                   </ul>

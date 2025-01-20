@@ -266,8 +266,7 @@ const ExistingUser = () => {
                       name="layananNames"
                       multiple
                       value={pkbData.layananNames}
-                      onChange={(e) => handleMultipleSelectChange(e, "layananNames")}
-                      required
+                      onChange={(e) => handleMultipleSelectChange(e, "layananNames")}    
                     >
                       {services.map((service) => (
                         <option key={service._id} value={service.namaLayanan}>
@@ -282,8 +281,7 @@ const ExistingUser = () => {
                       name="sparepartNames"
                       multiple
                       value={pkbData.sparepartNames}
-                      onChange={(e) => handleMultipleSelectChange(e, "sparepartNames")}
-                      required
+                      onChange={(e) => handleMultipleSelectChange(e, "sparepartNames")}                      
                     >
                       {spareparts.map((sparepart) => (
                         <option key={sparepart._id} value={sparepart.namaPart}>

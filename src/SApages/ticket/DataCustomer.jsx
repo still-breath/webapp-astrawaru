@@ -296,7 +296,6 @@ const DataCustomer = () => {
                   value={pkbData.layananNames}
                   onChange={handlePkbChange}
                   placeholder="Contoh: Servis Awal, Balancing Ban"
-                  required
                 />
               </div>
               <div className="form-group">
@@ -307,7 +306,6 @@ const DataCustomer = () => {
                   value={pkbData.sparepartNames}
                   onChange={handlePkbChange}
                   placeholder="Contoh: Filter Oli, Busi"
-                  required
                 />
               </div>
               <div className="form-group">

@@ -18,6 +18,7 @@ import Sparepart from "./SparePartpages/DataSparepart";
 import TambahDataSP from "./SparePartpages/TambahDataSP";
 import Logout from "./login/Logout";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Future from "./SApages/history/Future";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -146,6 +147,26 @@ function App() {
             element={
               <ProtectedRoute
                 element={<History />}
+                allowedRole="SA"
+              />
+            }
+          />
+
+          <Route
+            path="/future/:noRangka"
+            element={
+              <ProtectedRoute
+                element={<Future />}
+                allowedRole="SA"
+              />
+            }
+          />
+
+          <Route
+            path="/future/edit/:id"
+            element={
+              <ProtectedRoute
+                element={<Future />}
                 allowedRole="SA"
               />
             }

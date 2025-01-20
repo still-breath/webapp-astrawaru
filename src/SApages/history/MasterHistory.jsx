@@ -68,6 +68,16 @@ const MasterHistory = () => {
     { field: "produk", headerName: "Produk", width: 130 },
     { field: "customerName", headerName: "Nama Customer", width: 200 },
     {
+      field: "future",
+      headerName: "Servis Selanjutnya",
+      width: 150,
+      renderCell: (params) => (
+        <Link to={`/future/${params.row.noRangka}`}>
+          <button className="detailButton">Next Services</button>
+        </Link>
+      ),
+    },
+    {
         field: "action",
         headerName: "Actions",
         width: 120,

@@ -23,13 +23,13 @@ const History = () => {
         const pkbList = pkbResponse.data.pkbs || [];
 
         // Filter data kendaraan berdasarkan noRangka
-        const selectedVehicle = vehicleList.filter(
-          (vehicle) => vehicle.noRangka === noRangka
+        const selectedVehicle = vehicleList.find(
+          vehicle => vehicle.noRangka === noRangka
         );
 
         // Filter PKB yang memiliki noRangka sama
         const filteredPkbs = pkbList.filter(
-          (pkb) => pkb.vehicle.noRangka === noRangka
+          pkb => pkb.vehicle?.noRangka === noRangka
         );
 
         setVehicleData(selectedVehicle);
@@ -70,9 +70,9 @@ const History = () => {
                 </div>
                 <div className="data-pemilik">
                   <h3>Data Pemilik</h3>
-                  <p><strong>Nama:</strong> {vehicleData.customer?.nama || "-"}</p>
-                  <p><strong>Alamat:</strong> {vehicleData.customer?.alamat || "-"}</p>
-                  <p><strong>Telepon:</strong> {vehicleData.customer?.noTelp || "-"}</p>
+                  <p><strong>Nama:</strong> {vehicleData.customer.nama || "-"}</p>
+                  <p><strong>Alamat:</strong> {vehicleData.customer.alamat || "-"}</p>
+                  <p><strong>Telepon:</strong> {vehicleData.customer.noTelp || "-"}</p>
                 </div>
               </div>
 
@@ -88,7 +88,7 @@ const History = () => {
                         <p><strong>KM:</strong> {pkb.kilometer}</p>
                         <p><strong>S/A:</strong> {pkb.namaSa}</p>
                         <p><strong>Mekanik:</strong> {pkb.namaMekanik}</p>
-                        <p><strong>Respons Mekanik:</strong> {pkb.responsMekanik}</p>
+                        <p><strong>Respons Mekanik:</strong> {pkb.responsMekanik.replace(/\n/g, ', ')}</p>
                       </div>
                       <div className="card-body">
                         <p><strong>Layanan:</strong></p>
