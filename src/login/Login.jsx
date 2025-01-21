@@ -44,7 +44,7 @@ const Login = ({ onLogin }) => {
 
   const handleRegisterClick = () => {
     // Jika pengguna belum memiliki akun, arahkan ke halaman register
-    window.location.href = 'bengkel-mate-backend.vercel.app/register';
+    window.location.href = '/register';
   };
 
   return (
