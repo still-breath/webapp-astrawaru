@@ -16,7 +16,7 @@ const MasterHistory = () => {
     const fetchData = async () => {
       try {
         // Fetch progress data and filter "Completed"
-        const progressResponse = await fetch("/api/progress");
+        const progressResponse = await fetch("https://bengkel-mate-backend.vercel.app/api/progress");
         const progressData = await progressResponse.json();
 
         const completedProgress = progressData.progresses.filter(
@@ -29,7 +29,7 @@ const MasterHistory = () => {
         );
 
         // Fetch vehicle data
-        const vehicleResponse = await fetch("/api/vehicles");
+        const vehicleResponse = await fetch("https://bengkel-mate-backend.vercel.app/api/vehicles");
         const vehicleData = await vehicleResponse.json();
 
         // Filter vehicles that match noRangka from completed progress

@@ -25,7 +25,7 @@ const Ticket = () => {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const response = await axios.get("/api/tickets");
+        const response = await axios.get("https://bengkel-mate-backend.vercel.app/api/tickets");
         setTickets(response.data.services || []);
       } catch (error) {
         console.error("Error fetching tickets:", error);
@@ -51,7 +51,7 @@ const Ticket = () => {
 
     try {
       console.log("Deleting ticket ID:", ticketId);
-      await axios.delete(`/api/tickets/${ticketId}`);
+      await axios.delete(`https://bengkel-mate-backend.vercel.app/api/tickets/${ticketId}`);
       setTickets((prevTickets) =>
         prevTickets.filter((ticket) => ticket._id !== ticketId)
       );

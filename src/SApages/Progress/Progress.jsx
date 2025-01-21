@@ -13,7 +13,7 @@ const Progress = () => {
   useEffect(() => {
     const fetchProgressData = async () => {
       try {
-        const response = await axios.get("/api/progress"); // Replace with your actual backend endpoint
+        const response = await axios.get("https://bengkel-mate-backend.vercel.app/api/progress"); // Replace with your actual backend endpoint
         setProgressData(response.data.progresses || []); // Store progress data in state
       } catch (error) {
         console.error("Error fetching progress data:", error);

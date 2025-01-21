@@ -23,7 +23,7 @@ const PostProgress = () => {
   useEffect(() => {
     const fetchNoPkbList = async () => {
       try {
-        const response = await axios.get("/api/pkb"); // Fetch all PKB
+        const response = await axios.get("https://bengkel-mate-backend.vercel.app/api/pkb"); // Fetch all PKB
         const pkbList = response.data.pkbs || []; // Extract PKBs
         setNoPkbList(pkbList); // Save list of PKBs
       } catch (error) {
@@ -38,7 +38,7 @@ const PostProgress = () => {
   useEffect(() => {
     const fetchNoRangkaList = async () => {
       try {
-        const response = await axios.get("/api/vehicles"); // Fetch all vehicles
+        const response = await axios.get("https://bengkel-mate-backend.vercel.app/api/vehicles"); // Fetch all vehicles
         const vehicles = response.data.vehicles || []; // Extract vehicles
         const noRangkaOptions = vehicles.map((vehicle) => vehicle.noRangka); // Extract noRangka
         setNoRangkaList(noRangkaOptions); // Save list of noRangka
@@ -67,7 +67,7 @@ const PostProgress = () => {
       };
 
       // Post progress to API
-      await axios.post("/api/progress", bodyRequest);
+      await axios.post("https://bengkel-mate-backend.vercel.app/api/progress", bodyRequest);
       setMessage("Progress berhasil disimpan!");
       setTimeout(() => {
         navigate("/progress"); // Redirect to progress page

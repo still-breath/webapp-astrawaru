@@ -15,11 +15,11 @@ const History = () => {
     const fetchData = async () => {
       try {
         // Fetch data kendaraan
-        const vehicleResponse = await axios.get("/api/vehicles");
+        const vehicleResponse = await axios.get("https://bengkel-mate-backend.vercel.app/api/vehicles");
         const vehicleList = vehicleResponse.data.vehicles || [];
 
         // Fetch PKB data
-        const pkbResponse = await axios.get("/api/pkb");
+        const pkbResponse = await axios.get("https://bengkel-mate-backend.vercel.app/api/pkb");
         const pkbList = pkbResponse.data.pkbs || [];
 
         // Filter data kendaraan berdasarkan noRangka

@@ -26,7 +26,7 @@ const Register = () => {
       console.log('Form Data:', formData); // Log to check the data before sending it
       
       // Make the POST request to the backend
-      const response = await axios.post('bengkel-mate-backend.vercel.app/auth/register', formData);
+      const response = await axios.post('https://bengkel-mate-backend.vercel.app/api/auth/register', formData);
       
       setMessage('Registration successful!');
       console.log('Registration response:', response.data);

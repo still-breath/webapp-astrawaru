@@ -14,7 +14,7 @@ const PKBDetail = () => {
     const fetchPkb = async () => {
       try {
         // Fetch PKB berdasarkan noPkb
-        const pkbResponse = await axios.get(`/api/pkb?noPkb=${noPkb}`);
+        const pkbResponse = await axios.get(`https://bengkel-mate-backend.vercel.app/api/pkb?noPkb=${noPkb}`);
         const pkb = pkbResponse.data.pkbs?.find((item) => item.noPkb === noPkb);
 
         if (!pkb) {

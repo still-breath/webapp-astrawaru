@@ -65,7 +65,7 @@ const DataCustomer = () => {
   const handleOwnerSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/customers", ownerData);
+      await axios.post("https://bengkel-mate-backend.vercel.app/api/customers", ownerData);
       setMessage("Data pemilik berhasil disimpan!");
       setStep(2);
     } catch (error) {
@@ -81,7 +81,7 @@ const DataCustomer = () => {
         ...vehicleData,
         customerName: ownerData.nama,
       };
-      await axios.post("/api/vehicles", vehicleRequest);
+      await axios.post("https://bengkel-mate-backend.vercel.app/api/vehicles", vehicleRequest);
       setMessage("Data kendaraan berhasil disimpan!");
       setStep(3);
     } catch (error) {
@@ -101,7 +101,7 @@ const DataCustomer = () => {
         customerName: ownerData.nama,
         noRangka: vehicleData.noRangka, 
       };
-      await axios.post("/api/pkb", bodyRequest);
+      await axios.post("https://bengkel-mate-backend.vercel.app/api/pkb", bodyRequest);
       setMessage("Data PKB berhasil disimpan!");
     } catch (error) {
       console.error("Error:", error);

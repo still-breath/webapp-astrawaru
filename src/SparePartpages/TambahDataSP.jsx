@@ -26,7 +26,7 @@ const TambahDataSP = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/api/spareparts", {
+      const response = await axios.post("https://bengkel-mate-backend.vercel.app/api/spareparts", {
         ...formData,
         stock: parseInt(formData.stock, 10), // Ensure stock is an integer
         harga: parseFloat(formData.harga), // Ensure harga is a float

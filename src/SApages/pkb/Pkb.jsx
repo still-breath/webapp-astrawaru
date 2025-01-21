@@ -13,7 +13,7 @@ const PKB = () => {
   useEffect(() => {
     const fetchPkbData = async () => {
       try {
-        const response = await axios.get("/api/pkb");
+        const response = await axios.get("https://bengkel-mate-backend.vercel.app/api/pkb");
         setPkbData(response.data.pkbs || []);
         setIsLoading(false);
       } catch (error) {

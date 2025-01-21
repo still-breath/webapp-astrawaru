@@ -40,10 +40,10 @@ const ExistingUser = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const customersResponse = await axios.get("/api/customers");
-        const vehiclesResponse = await axios.get("/api/vehicles");
-        const servicesResponse = await axios.get("/api/layanan");
-        const sparepartsResponse = await axios.get("/api/spareparts");
+        const customersResponse = await axios.get("https://bengkel-mate-backend.vercel.app/api/customers");
+        const vehiclesResponse = await axios.get("https://bengkel-mate-backend.vercel.app/api/vehicles");
+        const servicesResponse = await axios.get("https://bengkel-mate-backend.vercel.app/api/layanan");
+        const sparepartsResponse = await axios.get("https://bengkel-mate-backend.vercel.app/api/spareparts");
 
         setCustomers(customersResponse.data.customers || []);
         setVehicles(vehiclesResponse.data.vehicles || []);
@@ -84,7 +84,7 @@ const ExistingUser = () => {
   const handleSubmitNewVehicle = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/vehicles", newVehicle);
+      await axios.post("https://bengkel-mate-backend.vercel.app/api/vehicles", newVehicle);
       alert("Kendaraan baru berhasil disimpan!");
       setShowPkbForm(true); // Tampilkan form PKB baru setelah kendaraan disimpan
       setPkbData((prevState) => ({
@@ -101,7 +101,7 @@ const ExistingUser = () => {
   const handleSubmitPkb = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/pkb", pkbData);
+      await axios.post("https://bengkel-mate-backend.vercel.app/api/pkb", pkbData);
       alert("Data PKB berhasil disimpan!");
     } catch (error) {
       console.error("Error saving PKB:", error);
@@ -113,7 +113,7 @@ const ExistingUser = () => {
   const updateVehicleKilometer = async () => {
     try {
       if (vehicleId && vehicleKilometer) {
-        await axios.patch(`/api/vehicles/${vehicleId}`, { kilometer: vehicleKilometer });
+        await axios.patch(`https://bengkel-mate-backend.vercel.app/api/vehicles/${vehicleId}`, { kilometer: vehicleKilometer });
         alert("Kilometer kendaraan berhasil diperbarui!");
       }
     } catch (error) {

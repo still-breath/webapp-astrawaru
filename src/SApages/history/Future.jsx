@@ -26,11 +26,11 @@ const Future = () => {
     const fetchData = async () => {
       try {
         // Fetch layanan
-        const serviceResponse = await axios.get("/api/layanan");
+        const serviceResponse = await axios.get("https://bengkel-mate-backend.vercel.app/api/layanan");
         setServices(serviceResponse.data.layanan || []);
 
         // Fetch semua data future
-        const futureResponse = await axios.get("/api/futures");
+        const futureResponse = await axios.get("https://bengkel-mate-backend.vercel.app/api/futures");
         const futuresData = futureResponse.data.futures || [];
 
         // Filter future data berdasarkan noRangka
@@ -85,11 +85,11 @@ const Future = () => {
 
       if (futureData) {
         // PATCH untuk edit data
-        await axios.patch(`/api/futures/${futureData._id}`, payload);
+        await axios.patch(`https://bengkel-mate-backend.vercel.app/api/futures/${futureData._id}`, payload);
         alert("Data berhasil diperbarui!");
       } else {
         // POST untuk tambah data baru
-        await axios.post("/api/futures", payload);
+        await axios.post("https://bengkel-mate-backend.vercel.app/api/futures", payload);
         alert("Data berhasil ditambahkan!");
       }
 

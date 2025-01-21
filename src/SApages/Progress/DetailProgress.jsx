@@ -21,7 +21,7 @@ const DetailProgress = () => {
   useEffect(() => {
     const fetchProgressDetail = async () => {
       try {
-        const response = await axios.get(`/api/progress/${id}`);
+        const response = await axios.get(`https://bengkel-mate-backend.vercel.app/api/progress/${id}`);
         const progressData = response.data.progress;
 
         setProgressDetail(progressData);
@@ -34,7 +34,7 @@ const DetailProgress = () => {
         // Fetch layanan options based on pkb.layanan
         const layananIds = progressData.pkb.layanan || [];
         const layananResponses = await Promise.all(
-          layananIds.map((layananId) => axios.get(`/api/layanan/${layananId}`))
+          layananIds.map((layananId) => axios.get(`https://bengkel-mate-backend.vercel.app/api/layanan/${layananId}`))
         );
         setLayananOptions(layananResponses.map((res) => res.data.layanan));
       } catch (error) {
@@ -60,7 +60,7 @@ const DetailProgress = () => {
       };
 
       // Update the specific field
-      await axios.patch(`/api/progress/${id}`, bodyRequest);
+      await axios.patch(`https://bengkel-mate-backend.vercel.app/api/progress/${id}`, bodyRequest);
 
       setMessage("Data berhasil diperbarui!");
       setEditField(null); // Close edit mode

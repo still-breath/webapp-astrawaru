@@ -23,9 +23,9 @@ const EstimateSum = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const pkbResponse = await axios.get("/api/pkb");
-        const layananResponse = await axios.get("/api/layanan");
-        const sparepartResponse = await axios.get("/api/spareparts");
+        const pkbResponse = await axios.get("https://bengkel-mate-backend.vercel.app/api/pkb");
+        const layananResponse = await axios.get("https://bengkel-mate-backend.vercel.app/api/layanan");
+        const sparepartResponse = await axios.get("https://bengkel-mate-backend.vercel.app/api/spareparts");
 
         setPkbList(pkbResponse.data.pkbs || []);
         setServices(layananResponse.data.layanan || []);
@@ -85,7 +85,7 @@ const EstimateSum = () => {
       };
 
       // Kirim data ke summary
-      const response = await axios.post("/api/summary", summaryPayload);
+      const response = await axios.post("https://bengkel-mate-backend.vercel.app/api/summary", summaryPayload);
       setSummary(response.data.summaries); // Simpan respons summary
 
       // Reset state setelah menyimpan

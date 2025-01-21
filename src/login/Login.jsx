@@ -11,7 +11,7 @@ const Login = ({ onLogin }) => {
   const handleLoginClick = async () => {
     try {
       // Kirim permintaan login ke server dengan username dan password
-      const response = await axios.post('bengkel-mate-backend.vercel.app/auth/login', {
+      const response = await axios.post('https://bengkel-mate-backend.vercel.app/api/auth/login', {
         username,
         password,
       });
