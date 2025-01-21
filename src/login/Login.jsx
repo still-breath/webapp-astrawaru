@@ -11,7 +11,7 @@ const Login = ({ onLogin }) => {
   const handleLoginClick = async () => {
     try {
       // Kirim permintaan login ke server dengan username dan password
-      const response = await axios.post('/api/auth/login', {
+      const response = await axios.post('bengkel-mate-backend.vercel.app/auth/login', {
         username,
         password,
       });
@@ -44,7 +44,7 @@ const Login = ({ onLogin }) => {
 
   const handleRegisterClick = () => {
     // Jika pengguna belum memiliki akun, arahkan ke halaman register
-    window.location.href = '/register';
+    window.location.href = 'bengkel-mate-backend.vercel.app/register';
   };
 
   return (
