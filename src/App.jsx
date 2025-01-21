@@ -37,11 +37,11 @@ function App() {
   // Protected Route Component
   const ProtectedRoute = ({ element, allowedRole }) => {
     if (!isLoggedIn) {
-      return <Navigate to="https://webapp-astrawaru.vercel.app/login" />;
+      return <Navigate to="/login" />;
     }
 
     if (allowedRole && userRole !== allowedRole) {
-      return <Navigate to="https://webapp-astrawaru.vercel.app/login" />;
+      return <Navigate to="/login" />;
     }
 
     return element;
@@ -53,7 +53,7 @@ function App() {
         <Routes>
           {/* Login route */}
           <Route
-            path="https://webapp-astrawaru.vercel.app/login"
+            path="/login"
             element={
               isLoggedIn ? (
                 userRole === "admin" ? (
