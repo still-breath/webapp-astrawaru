@@ -15,21 +15,25 @@ const History = () => {
     const fetchData = async () => {
       try {
         // Fetch data kendaraan
-        const vehicleResponse = await axios.get("https://bengkel-mate-backend.vercel.app/api/vehicles");
+        const vehicleResponse = await axios.get(
+          "https://bengkel-mate-backend.vercel.app/api/vehicles"
+        );
         const vehicleList = vehicleResponse.data.vehicles || [];
 
         // Fetch PKB data
-        const pkbResponse = await axios.get("https://bengkel-mate-backend.vercel.app/api/pkb");
+        const pkbResponse = await axios.get(
+          "https://bengkel-mate-backend.vercel.app/api/pkb"
+        );
         const pkbList = pkbResponse.data.pkbs || [];
 
         // Filter data kendaraan berdasarkan noRangka
         const selectedVehicle = vehicleList.find(
-          vehicle => vehicle.noRangka === noRangka
+          (vehicle) => vehicle.noRangka === noRangka
         );
 
         // Filter PKB yang memiliki noRangka sama
         const filteredPkbs = pkbList.filter(
-          pkb => pkb.vehicle?.noRangka === noRangka
+          (pkb) => pkb.vehicle?.noRangka === noRangka
         );
 
         setVehicleData(selectedVehicle);
@@ -61,18 +65,38 @@ const History = () => {
               <div className="header-info">
                 <div className="data-kendaraan">
                   <h3>Data Kendaraan</h3>
-                  <p><strong>No Polisi:</strong> {vehicleData.noPolisi}</p>
-                  <p><strong>No Rangka:</strong> {vehicleData.noRangka}</p>
-                  <p><strong>No Mesin:</strong> {vehicleData.noMesin}</p>
-                  <p><strong>Type:</strong> {vehicleData.tipe}</p>
-                  <p><strong>Tahun Produksi:</strong> {vehicleData.tahun}</p>
-                  <p><strong>Produk:</strong> {vehicleData.produk}</p>
+                  <p>
+                    <strong>No Polisi:</strong> {vehicleData.noPolisi}
+                  </p>
+                  <p>
+                    <strong>No Rangka:</strong> {vehicleData.noRangka}
+                  </p>
+                  <p>
+                    <strong>No Mesin:</strong> {vehicleData.noMesin}
+                  </p>
+                  <p>
+                    <strong>Type:</strong> {vehicleData.tipe}
+                  </p>
+                  <p>
+                    <strong>Tahun Produksi:</strong> {vehicleData.tahun}
+                  </p>
+                  <p>
+                    <strong>Produk:</strong> {vehicleData.produk}
+                  </p>
                 </div>
                 <div className="data-pemilik">
                   <h3>Data Pemilik</h3>
-                  <p><strong>Nama:</strong> {vehicleData.customer.nama || "-"}</p>
-                  <p><strong>Alamat:</strong> {vehicleData.customer.alamat || "-"}</p>
-                  <p><strong>Telepon:</strong> {vehicleData.customer.noTelp || "-"}</p>
+                  <p>
+                    <strong>Nama:</strong> {vehicleData.customer.nama || "-"}
+                  </p>
+                  <p>
+                    <strong>Alamat:</strong>{" "}
+                    {vehicleData.customer.alamat || "-"}
+                  </p>
+                  <p>
+                    <strong>Telepon:</strong>{" "}
+                    {vehicleData.customer.noTelp || "-"}
+                  </p>
                 </div>
               </div>
 
@@ -83,27 +107,52 @@ const History = () => {
                   pkbData.map((pkb, index) => (
                     <div key={index} className="historis-card">
                       <div className="card-header">
-                        <p><strong>Tanggal:</strong> {new Date(pkb.tanggalWaktu).toLocaleDateString()}</p>
-                        <p><strong>No PKB:</strong> {pkb.noPkb}</p>
-                        <p><strong>KM:</strong> {pkb.kilometer}</p>
-                        <p><strong>S/A:</strong> {pkb.namaSa}</p>
-                        <p><strong>Mekanik:</strong> {pkb.namaMekanik}</p>
-                        <p><strong>Respons Mekanik:</strong> {pkb.responsMekanik.replace(/\n/g, ', ')}</p>
+                        <p>
+                          <strong>Tanggal:</strong>{" "}
+                          {new Date(pkb.tanggalWaktu).toLocaleDateString(
+                            "id-ID"
+                          )}
+                        </p>
+                        <p>
+                          <strong>No PKB:</strong> {pkb.noPkb}
+                        </p>
+                        <p>
+                          <strong>KM:</strong> {pkb.kilometer}
+                        </p>
+                        <p>
+                          <strong>S/A:</strong> {pkb.namaSa}
+                        </p>
+                        <p>
+                          <strong>Mekanik:</strong> {pkb.namaMekanik}
+                        </p>
+                        <p>
+                          <strong>Respons Mekanik:</strong>{" "}
+                          {pkb.responsMekanik.replace(/\n/g, ", ")}
+                        </p>
                       </div>
                       <div className="card-body">
-                        <p><strong>Layanan:</strong></p>
+                        <p>
+                          <strong>Layanan:</strong>
+                        </p>
                         <ul>
-                          {pkb.layanan.map((layanan, idx) => (
+                          {pkb.summary?.layanan?.map((layanan, idx) => (
                             <li key={idx}>
-                              {layanan.namaLayanan} - Rp {layanan.harga.toLocaleString()}
+                              {layanan.namaLayanan} - Rp{" "}
+                              {layanan.harga.toLocaleString()} x{" "}
+                              {layanan.quantity} = Rp{" "}
+                              {layanan.total.toLocaleString()}
                             </li>
                           ))}
                         </ul>
-                        <p><strong>Spareparts:</strong></p>
+                        <p>
+                          <strong>Spareparts:</strong>
+                        </p>
                         <ul>
-                          {pkb.spareparts.map((part, idx) => (
+                          {pkb.summary?.sparepart?.map((part, idx) => (
                             <li key={idx}>
-                              {part.namaPart} - Rp {part.harga.toLocaleString()}
+                              {part.namaPart} - Rp{" "}
+                              {part.harga.toLocaleString()} x {part.quantity} = Rp{" "}
+                              {part.total.toLocaleString()}
                             </li>
                           ))}
                         </ul>
