@@ -8,7 +8,7 @@ import "./detailprogress.scss";
 const DetailProgress = () => {
   const { id } = useParams(); // Get progress ID from URL
   const [progressDetail, setProgressDetail] = useState(null); // Store progress detail data
-  const [layananOptions, setLayananOptions] = useState([]); // Layanan options for dropdown
+  const [layananOptions, setLayananOptions] = useState([]); // Store all layanan options
   const [editField, setEditField] = useState(null); // Track which field is being edited
   const [updatedData, setUpdatedData] = useState({
     persentase: 0,
@@ -17,10 +17,11 @@ const DetailProgress = () => {
   }); // Store updated values
   const [message, setMessage] = useState(""); // Message for success or error
 
-  // Fetch progress detail and layanan options on load
+  // Fetch progress detail and all layanan options on load
   useEffect(() => {
     const fetchProgressDetail = async () => {
       try {
+        // Fetch progress data
         const response = await axios.get(`https://bengkel-mate-backend.vercel.app/api/progress/${id}`);
         const progressData = response.data.progress;
 
@@ -31,12 +32,9 @@ const DetailProgress = () => {
           progresLayanan: progressData.progresLayanan || "-",
         });
 
-        // Fetch layanan options based on pkb.layanan
-        const layananIds = progressData.pkb.layanan || [];
-        const layananResponses = await Promise.all(
-          layananIds.map((layananId) => axios.get(`https://bengkel-mate-backend.vercel.app/api/layanan/${layananId}`))
-        );
-        setLayananOptions(layananResponses.map((res) => res.data.layanan));
+        // Fetch all layanan from the database
+        const layananResponse = await axios.get(`https://bengkel-mate-backend.vercel.app/api/layanan`);
+        setLayananOptions(layananResponse.data.layanan || []);
       } catch (error) {
         console.error("Error fetching progress details:", error);
       }
@@ -87,19 +85,19 @@ const DetailProgress = () => {
               <strong>No PKB:</strong> {progressDetail.pkb.noPkb}
             </p>
             <p>
-                <strong>No Polisi:</strong> {progressDetail.vehicle?.noPolisi || "Data tidak tersedia"}
+              <strong>No Polisi:</strong> {progressDetail.vehicle?.noPolisi || "Data tidak tersedia"}
             </p>
             <p>
-                <strong>No Rangka:</strong> {progressDetail.vehicle?.noRangka || "Data tidak tersedia"}
+              <strong>No Rangka:</strong> {progressDetail.vehicle?.noRangka || "Data tidak tersedia"}
             </p>
             <p>
-                <strong>Tipe:</strong> {progressDetail.vehicle?.tipe || "Data tidak tersedia"}
+              <strong>Tipe:</strong> {progressDetail.vehicle?.tipe || "Data tidak tersedia"}
             </p>
             <p>
-                <strong>Produk:</strong> {progressDetail.vehicle?.produk || "Data tidak tersedia"}
+              <strong>Produk:</strong> {progressDetail.vehicle?.produk || "Data tidak tersedia"}
             </p>
             <p>
-                <strong>Kilometer:</strong> {progressDetail.vehicle?.kilometer || "Data tidak tersedia"}
+              <strong>Kilometer:</strong> {progressDetail.vehicle?.kilometer || "Data tidak tersedia"}
             </p>
             <p>
               <strong>Keluhan:</strong> {progressDetail.pkb.keluhan}
@@ -146,29 +144,36 @@ const DetailProgress = () => {
               )}
             </p>
             <p>
-              <strong>Layanan:</strong>{" "}
-              {editField === "progresLayanan" ? (
-                <select
-                  name="progresLayanan"
-                  value={updatedData.progresLayanan}
-                  onChange={handleInputChange}
-                >
-                  <option value="-">Pilih Layanan</option>
-                  {layananOptions.map((layanans, index) => (
-                    <option key={index} value={layanans.namaLayanan}>
-                      {layanans.namaLayanan}
+                <strong>Layanan:</strong>{" "}
+                {editField === "progresLayanan" ? (
+                  <select
+                    name="progresLayanan"
+                    value={updatedData.progresLayanan}
+                    onChange={handleInputChange}
+                  >
+                    {/* Opsi default: layanan sebelumnya */}
+                    <option value={progressDetail.progresLayanan}>
+                      {progressDetail.progresLayanan || "Pilih Layanan"}
                     </option>
-                  ))}
-                </select>
-              ) : (
-                progressDetail.progresLayanan
-              )}
-              {editField === "progresLayanan" ? (
-                <button onClick={() => handleSave("progresLayanan")}>Save</button>
-              ) : (
-                <button onClick={() => setEditField("progresLayanan")}>Edit</button>
-              )}
+                    {/* Opsi layanan lainnya dari database */}
+                    {layananOptions
+                      .filter((layanan) => layanan.namaLayanan !== progressDetail.progresLayanan) // Hindari duplikasi
+                      .map((layanan, index) => (
+                        <option key={index} value={layanan.namaLayanan}>
+                          {layanan.namaLayanan}
+                        </option>
+                      ))}
+                  </select>
+                ) : (
+                  progressDetail.progresLayanan || "Tidak ada layanan"
+                )}
+                {editField === "progresLayanan" ? (
+                  <button onClick={() => handleSave("progresLayanan")}>Save</button>
+                ) : (
+                  <button onClick={() => setEditField("progresLayanan")}>Edit</button>
+                )}
             </p>
+
           </div>
           {message && <p className="message">{message}</p>}
         </div>
