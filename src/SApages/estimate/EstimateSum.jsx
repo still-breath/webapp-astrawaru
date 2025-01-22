@@ -67,41 +67,6 @@ const EstimateSum = () => {
     setNewSparepart({ name: "", price: 0, quantity: 1 });
   };
 
-  // Submit Data ke /api/summary
-  const handleSubmit = async () => {
-    try {
-      const layanan = selectedServices.map((s) => ({
-        namaLayanan: s.name,
-        quantity: s.quantity,
-      }));
-      const sparepart = selectedSpareparts.map((sp) => ({
-        namaPart: sp.name,
-        quantity: sp.quantity,
-      }));
-
-      // Payload untuk POST ke summary
-      const summaryPayload = {
-        noPkb: selectedPkb,
-        layanan,
-        sparepart,
-      };
-
-      // Kirim data ke summary
-      const response = await axios.post("https://bengkel-mate-backend.vercel.app/api/summary", summaryPayload);
-      setSummary(response.data.summaries); // Simpan respons summary
-
-      // Reset state setelah menyimpan
-      setSelectedServices([]);
-      setSelectedSpareparts([]);
-      setSummary(null);
-
-      alert("Summary berhasil disimpan!");
-    } catch (error) {
-      console.error("Error saving summary:", error);
-      alert("Terjadi kesalahan saat menyimpan data.");
-    }
-  };
-
   // Generate PDF
   const generatePDF = () => {
     const doc = new jsPDF();
@@ -155,6 +120,43 @@ const EstimateSum = () => {
   // Calculate Totals
   const jasaTotal = selectedServices.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const sparepartTotal = selectedSpareparts.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  const handleSubmit = async () => {
+  try {
+    const layanan = selectedServices.map((s) => ({
+      namaLayanan: s.name,
+      quantity: s.quantity,
+    }));
+    const sparepart = selectedSpareparts.map((sp) => ({
+      namaPart: sp.name,
+      quantity: sp.quantity,
+    }));
+
+    // Payload untuk POST ke summary
+    const summaryPayload = {
+      noPkb: selectedPkb,
+      layanan,
+      sparepart,
+    };
+
+    // Kirim data ke summary
+    const response = await axios.post("https://bengkel-mate-backend.vercel.app/api/summary", summaryPayload);
+    setSummary(response.data.summaries); // Simpan respons summary
+
+    // Reset state setelah menyimpan
+    setSelectedServices([]);
+    setSelectedSpareparts([]);
+    setSummary(null);
+
+    alert("Summary berhasil disimpan!");
+
+    // Generate PDF setelah data disimpan
+    generatePDF();
+  } catch (error) {
+    console.error("Error saving summary:", error);
+    alert("Terjadi kesalahan saat menyimpan data.");
+  }
+};
 
   return (
     <div className="estsum">
@@ -244,8 +246,7 @@ const EstimateSum = () => {
             <p>Total Sparepart: <span>Rp {sparepartTotal}</span></p>
             <p>Grand Total: <span>Rp {jasaTotal + sparepartTotal}</span></p>
           </div>
-          <button className="submit-button" onClick={handleSubmit}>Simpan</button>
-          <button className="download-button" onClick={generatePDF}>Unduh PDF</button>
+          <button className="submit-button" onClick={handleSubmit}>Simpan dan Unduh PDF</button>
         </div>
       </div>
     </div>
