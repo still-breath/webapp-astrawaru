@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/sidebar-sa/SidebarSA";
 import Navbar from "../../components/navbar/Navbar";
 import axios from "axios";
+import jsPDF from "jspdf";
+import "jspdf-autotable"; // Untuk membuat tabel di PDF
 import "./estimateSum.scss";
 
 const EstimateSum = () => {
@@ -100,6 +102,56 @@ const EstimateSum = () => {
     }
   };
 
+  // Generate PDF
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    const date = new Date();
+
+    doc.setFontSize(14);
+    doc.text("Estimasi Biaya Perbaikan", 10, 10);
+
+    // PKB Information
+    doc.text(`Tanggal: ${date.toLocaleDateString()} ${date.toLocaleTimeString()}`, 10, 20);
+    doc.text(`No PKB: ${selectedPkb}`, 10, 30);
+    doc.text(`Nama Customer: ${summary?.customerName || "-"}`, 10, 40);
+    doc.text(`No Polisi: ${summary?.noPolisi || "-"}`, 10, 50);
+    doc.text(`Produk Kendaraan: ${summary?.produk || "-"}`, 10, 60);
+    doc.text(`Tipe Kendaraan: ${summary?.tipe || "-"}`, 10, 70);
+
+    // Layanan Table
+    const layananRows = selectedServices.map((service) => [
+      service.name,
+      service.quantity,
+      `Rp ${service.price.toLocaleString()}`,
+      `Rp ${(service.price * service.quantity).toLocaleString()}`,
+    ]);
+    doc.autoTable({
+      head: [["Layanan", "Qty", "Harga Satuan", "Total"]],
+      body: layananRows,
+      startY: 80,
+    });
+
+    // Sparepart Table
+    const sparepartRows = selectedSpareparts.map((part) => [
+      part.name,
+      part.quantity,
+      `Rp ${part.price.toLocaleString()}`,
+      `Rp ${(part.price * part.quantity).toLocaleString()}`,
+    ]);
+    doc.autoTable({
+      head: [["Sparepart", "Qty", "Harga Satuan", "Total"]],
+      body: sparepartRows,
+      startY: doc.lastAutoTable.finalY + 10,
+    });
+
+    // Total Summary
+    doc.text(`Total Jasa: Rp ${jasaTotal.toLocaleString()}`, 10, doc.lastAutoTable.finalY + 30);
+    doc.text(`Total Sparepart: Rp ${sparepartTotal.toLocaleString()}`, 10, doc.lastAutoTable.finalY + 40);
+    doc.text(`Grand Total: Rp ${(jasaTotal + sparepartTotal).toLocaleString()}`, 10, doc.lastAutoTable.finalY + 50);
+
+    doc.save(`Estimate-${selectedPkb}.pdf`);
+  };
+
   // Calculate Totals
   const jasaTotal = selectedServices.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const sparepartTotal = selectedSpareparts.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -193,6 +245,7 @@ const EstimateSum = () => {
             <p>Grand Total: <span>Rp {jasaTotal + sparepartTotal}</span></p>
           </div>
           <button className="submit-button" onClick={handleSubmit}>Simpan</button>
+          <button className="download-button" onClick={generatePDF}>Unduh PDF</button>
         </div>
       </div>
     </div>
