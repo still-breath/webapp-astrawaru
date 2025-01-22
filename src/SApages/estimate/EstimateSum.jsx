@@ -68,7 +68,18 @@ const EstimateSum = () => {
   };
 
   // Generate PDF
-  const generatePDF = () => {
+  const generatePDF = async () => {
+  try {
+    // Fetch data PKB berdasarkan noPkb yang dipilih
+    const pkbResponse = await axios.get("https://bengkel-mate-backend.vercel.app/api/pkb");
+    const pkbList = pkbResponse.data.pkbs || [];
+    const selectedPkbData = pkbList.find((pkb) => pkb.noPkb === selectedPkb);
+
+    if (!selectedPkbData) {
+      alert("Data PKB tidak ditemukan!");
+      return;
+    }
+
     const doc = new jsPDF();
     const date = new Date();
 
@@ -77,18 +88,18 @@ const EstimateSum = () => {
 
     // PKB Information
     doc.text(`Tanggal: ${date.toLocaleDateString()} ${date.toLocaleTimeString()}`, 10, 20);
-    doc.text(`No PKB: ${selectedPkb}`, 10, 30);
-    doc.text(`Nama Customer: ${summary?.customerName || "-"}`, 10, 40);
-    doc.text(`No Polisi: ${summary?.noPolisi || "-"}`, 10, 50);
-    doc.text(`Produk Kendaraan: ${summary?.produk || "-"}`, 10, 60);
-    doc.text(`Tipe Kendaraan: ${summary?.tipe || "-"}`, 10, 70);
+    doc.text(`No PKB: ${selectedPkbData.noPkb}`, 10, 30);
+    doc.text(`Nama Customer: ${selectedPkbData.customer.nama}`, 10, 40);
+    doc.text(`No Polisi: ${selectedPkbData.vehicle.noPolisi}`, 10, 50);
+    doc.text(`Produk Kendaraan: ${selectedPkbData.vehicle.produk}`, 10, 60);
+    doc.text(`Tipe Kendaraan: ${selectedPkbData.vehicle.tipe}`, 10, 70);
 
     // Layanan Table
-    const layananRows = selectedServices.map((service) => [
-      service.name,
+    const layananRows = selectedPkbData.summary.layanan.map((service) => [
+      service.namaLayanan,
       service.quantity,
-      `Rp ${service.price.toLocaleString()}`,
-      `Rp ${(service.price * service.quantity).toLocaleString()}`,
+      `Rp ${service.harga.toLocaleString()}`,
+      `Rp ${service.total.toLocaleString()}`,
     ]);
     doc.autoTable({
       head: [["Layanan", "Qty", "Harga Satuan", "Total"]],
@@ -97,11 +108,11 @@ const EstimateSum = () => {
     });
 
     // Sparepart Table
-    const sparepartRows = selectedSpareparts.map((part) => [
-      part.name,
+    const sparepartRows = selectedPkbData.summary.sparepart.map((part) => [
+      part.namaPart,
       part.quantity,
-      `Rp ${part.price.toLocaleString()}`,
-      `Rp ${(part.price * part.quantity).toLocaleString()}`,
+      `Rp ${part.harga.toLocaleString()}`,
+      `Rp ${part.total.toLocaleString()}`,
     ]);
     doc.autoTable({
       head: [["Sparepart", "Qty", "Harga Satuan", "Total"]],
@@ -110,12 +121,16 @@ const EstimateSum = () => {
     });
 
     // Total Summary
-    doc.text(`Total Jasa: Rp ${jasaTotal.toLocaleString()}`, 10, doc.lastAutoTable.finalY + 30);
-    doc.text(`Total Sparepart: Rp ${sparepartTotal.toLocaleString()}`, 10, doc.lastAutoTable.finalY + 40);
-    doc.text(`Grand Total: Rp ${(jasaTotal + sparepartTotal).toLocaleString()}`, 10, doc.lastAutoTable.finalY + 50);
+    doc.text(`Total Jasa: Rp ${selectedPkbData.summary.layanan.reduce((sum, item) => sum + item.total, 0).toLocaleString()}`, 10, doc.lastAutoTable.finalY + 30);
+    doc.text(`Total Sparepart: Rp ${selectedPkbData.summary.sparepart.reduce((sum, item) => sum + item.total, 0).toLocaleString()}`, 10, doc.lastAutoTable.finalY + 40);
+    doc.text(`Grand Total: Rp ${selectedPkbData.summary.totalHarga.toLocaleString()}`, 10, doc.lastAutoTable.finalY + 50);
 
-    doc.save(`Estimate-${selectedPkb}.pdf`);
-  };
+    doc.save(`Estimate-${selectedPkbData.noPkb}.pdf`);
+  } catch (error) {
+    console.error("Error generating PDF:", error);
+    alert("Gagal menghasilkan PDF.");
+  }
+};
 
   // Calculate Totals
   const jasaTotal = selectedServices.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -151,7 +166,7 @@ const EstimateSum = () => {
     alert("Summary berhasil disimpan!");
 
     // Generate PDF setelah data disimpan
-    generatePDF();
+    await generatePDF();
   } catch (error) {
     console.error("Error saving summary:", error);
     alert("Terjadi kesalahan saat menyimpan data.");
