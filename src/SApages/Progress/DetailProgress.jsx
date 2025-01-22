@@ -154,9 +154,9 @@ const DetailProgress = () => {
                   onChange={handleInputChange}
                 >
                   <option value="-">Pilih Layanan</option>
-                  {layananOptions.map((layanan, index) => (
-                    <option key={index} value={layanan.namaLayanan}>
-                      {layanan.namaLayanan}
+                  {layananOptions.map((layanans, index) => (
+                    <option key={index} value={layanans.namaLayanan}>
+                      {layanans.namaLayanan}
                     </option>
                   ))}
                 </select>
