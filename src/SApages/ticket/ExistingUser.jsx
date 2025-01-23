@@ -7,8 +7,6 @@ import "./existinguser.scss";
 const ExistingUser = () => {
   const [isNewVehicle, setIsNewVehicle] = useState(false); // State untuk menentukan jenis kendaraan
   const [customers, setCustomers] = useState([]);
-  const [services, setServices] = useState([]);
-  const [spareparts, setSpareparts] = useState([]);
   const [vehicle, setVehicles] = useState([]);
   const [pkbData, setPkbData] = useState({
     customerName: "",
@@ -42,13 +40,9 @@ const ExistingUser = () => {
       try {
         const customersResponse = await axios.get("https://bengkel-mate-backend.vercel.app/api/customers");
         const vehiclesResponse = await axios.get("https://bengkel-mate-backend.vercel.app/api/vehicles");
-        const servicesResponse = await axios.get("https://bengkel-mate-backend.vercel.app/api/layanan");
-        const sparepartsResponse = await axios.get("https://bengkel-mate-backend.vercel.app/api/spareparts");
 
         setCustomers(customersResponse.data.customers || []);
         setVehicles(vehiclesResponse.data.vehicles || []);
-        setServices(servicesResponse.data.layanan || []);
-        setSpareparts(sparepartsResponse.data.spareparts || []);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -343,38 +337,6 @@ const ExistingUser = () => {
                     ))}
                   </select>
                 </div>
-              <div className="form-group">
-                <label>Layanan:</label>
-                <select
-                  name="layananNames"
-                  multiple
-                  value={pkbData.layananNames}
-                  onChange={(e) => handleMultipleSelectChange(e, "layananNames")}
-                  required
-                >
-                  {services.map((service) => (
-                    <option key={service._id} value={service.namaLayanan}>
-                      {service.namaLayanan}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="form-group">
-                <label>Sparepart:</label>
-                <select
-                  name="sparepartNames"
-                  multiple
-                  value={pkbData.sparepartNames}
-                  onChange={(e) => handleMultipleSelectChange(e, "sparepartNames")}
-                  required
-                >
-                  {spareparts.map((sparepart) => (
-                    <option key={sparepart._id} value={sparepart.namaPart}>
-                      {sparepart.namaPart}
-                    </option>
-                  ))}
-                </select>
-              </div>
               <div className="form-group">
                 <label>Keluhan:</label>
                 <input
