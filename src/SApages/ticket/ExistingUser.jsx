@@ -264,6 +264,17 @@ const ExistingUser = () => {
                 </select>
               </div>
               <div className="form-group">
+                <label>No Rangka:</label>
+                <input
+                  type="text"
+                  name="noRangka"
+                  value={pkbData.noRangka}
+                  placeholder="Masukkan No Rangka"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
                 <label>Keluhan:</label>
                 <input
                   type="text"
