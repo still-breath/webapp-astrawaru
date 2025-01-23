@@ -12,6 +12,7 @@ const ExistingUser = () => {
     customerName: "",
     noRangka: "",
     keluhan: "",
+    summary: "",
     namaMekanik: "",
     namaSa: "",
     responsMekanik: "",
