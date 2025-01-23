@@ -261,36 +261,6 @@ const ExistingUser = () => {
                   </select>
                 </div>
                   <div className="form-group">
-                    <label>Layanan:</label>
-                    <select
-                      name="layananNames"
-                      multiple
-                      value={pkbData.layananNames}
-                      onChange={(e) => handleMultipleSelectChange(e, "layananNames")}    
-                    >
-                      {services.map((service) => (
-                        <option key={service._id} value={service.namaLayanan}>
-                          {service.namaLayanan}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <label>Sparepart:</label>
-                    <select
-                      name="sparepartNames"
-                      multiple
-                      value={pkbData.sparepartNames}
-                      onChange={(e) => handleMultipleSelectChange(e, "sparepartNames")}                      
-                    >
-                      {spareparts.map((sparepart) => (
-                        <option key={sparepart._id} value={sparepart.namaPart}>
-                          {sparepart.namaPart}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="form-group">
                     <label>Keluhan:</label>
                     <input
                       type="text"

@@ -289,26 +289,6 @@ const DataCustomer = () => {
                 />
               </div>
               <div className="form-group">
-                <label>Layanan (pisahkan dengan koma):</label>
-                <input
-                  type="text"
-                  name="layananNames"
-                  value={pkbData.layananNames}
-                  onChange={handlePkbChange}
-                  placeholder="Contoh: Servis Awal, Balancing Ban"
-                />
-              </div>
-              <div className="form-group">
-                <label>Sparepart (pisahkan dengan koma):</label>
-                <input
-                  type="text"
-                  name="sparepartNames"
-                  value={pkbData.sparepartNames}
-                  onChange={handlePkbChange}
-                  placeholder="Contoh: Filter Oli, Busi"
-                />
-              </div>
-              <div className="form-group">
                 <label>Respons Mekanik:</label>
                 <input
                   type="text"
