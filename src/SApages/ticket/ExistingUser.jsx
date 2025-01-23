@@ -326,7 +326,7 @@ const ExistingUser = () => {
                   <select
                     name="customerName"
                     value={pkbData.customerName}
-                    onChange={handleNewVehicleChange}
+                    onChange={handleChange}
                     required
                   >
                     <option value="">Pilih Customer</option>
