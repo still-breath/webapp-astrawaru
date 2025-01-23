@@ -11,8 +11,8 @@ const ExistingUser = () => {
   const [pkbData, setPkbData] = useState({
     customerName: "",
     noRangka: "",
-    layananNames: [],
-    sparepartNames: [],
+    layananNames: "",
+    sparepartNames: "",
     keluhan: "",
     namaMekanik: "",
     namaSa: "",
