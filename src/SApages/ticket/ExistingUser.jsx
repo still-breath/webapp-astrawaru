@@ -146,6 +146,8 @@ const ExistingUser = () => {
           {isNewVehicle ? (
             <form>
               <h3>Data Kendaraan Baru</h3>
+              {/* Form kendaraan baru */}
+              {/* (Konten sama seperti kode sebelumnya untuk kendaraan baru) */}
               <div className="form-group">
                 <label>No Polisi:</label>
                 <input
@@ -232,7 +234,6 @@ const ExistingUser = () => {
                   ))}
                 </select>
               </div>
-
               <button
                 type="button"
                 className="button"
@@ -243,7 +244,8 @@ const ExistingUser = () => {
             </form>
           ) : (
             <form>
-              <h3>Data PKB Kendaraan</h3>
+              <h3>Data PKB Kendaraan Lama</h3>
+              {/* Form PKB kendaraan lama */}
               <div className="form-group">
                 <label>Nama Customer:</label>
                 <select
@@ -322,6 +324,40 @@ const ExistingUser = () => {
               >
                 Simpan PKB
               </button>
+
+              {/* Update Kilometer */}
+              <h3>Update Kilometer Kendaraan</h3>
+              <div className="form-group">
+                <label>Pilih Kendaraan:</label>
+                <select
+                  value={vehicleId}
+                  onChange={(e) => setVehicleId(e.target.value)}
+                  required
+                >
+                  <option value="">Pilih Kendaraan</option>
+                  {vehicles.map((vehicle) => (
+                    <option key={vehicle._id} value={vehicle._id}>
+                      {vehicle.noPolisi} - {vehicle.noRangka}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Kilometer:</label>
+                <input
+                  type="number"
+                  value={vehicleKilometer}
+                  onChange={(e) => setVehicleKilometer(e.target.value)}
+                  required
+                />
+              </div>
+              <button
+                type="button"
+                className="button"
+                onClick={updateVehicleKilometer}
+              >
+                Update Kilometer
+              </button>
             </form>
           )}
         </div>
@@ -331,4 +367,3 @@ const ExistingUser = () => {
 };
 
 export default ExistingUser;
-
