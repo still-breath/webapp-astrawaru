@@ -69,7 +69,7 @@ const TambahDataSP = () => {
 
       const response = await axios.post("https://bengkel-mate-backend.vercel.app/api/sparepart_2", formDataToSend);
 
-      if (response.status === 201) {
+      if (response.status === 200 || response.status === 201) {
         setFileMessage("File berhasil diunggah!");
         setFileData(null);
       } else {
