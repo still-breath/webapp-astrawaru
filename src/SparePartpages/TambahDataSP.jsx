@@ -157,7 +157,7 @@ const TambahDataSP = () => {
                 type="file"
                 id="file"
                 name="file"
-                accept=".jpg,.png,.pdf,.docx"
+                accept=".jpg,.png,.pdf,.docx,.xlsx"
                 onChange={handleFileChange}
                 required
               />
