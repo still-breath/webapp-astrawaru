@@ -65,7 +65,7 @@ const TambahDataSP = () => {
 
     try {
       const formDataToSend = new FormData();
-      formDataToSend.append("files", fileData); // Tambahkan file ke FormData
+      formDataToSend.append("file", fileData); // Tambahkan file ke FormData
 
       const response = await axios.post("https://bengkel-mate-backend.vercel.app/api/sparepart_2", formDataToSend, {
         headers: {
