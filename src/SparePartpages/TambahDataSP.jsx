@@ -67,7 +67,7 @@ const TambahDataSP = () => {
       const formDataToSend = new FormData();
       formDataToSend.append("file", fileData); // Tambahkan file ke FormData
 
-      const response = await axios.post("https://bengkel-mate-backend.vercel.app/api/upload-file", formDataToSend, {
+      const response = await axios.post("https://bengkel-mate-backend.vercel.app/api/sparepart_2", formDataToSend, {
         headers: {
           "Content-Type": "multipart/form-data", // Header untuk FormData
         },
