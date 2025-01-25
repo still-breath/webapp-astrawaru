@@ -9,7 +9,7 @@ const Logout = ({ onLogout }) => {
     if (onLogout) {
       onLogout();
     }
-
+    localStorage.removeItem("token"); // Hapus token dari localStorage
     // Arahkan pengguna ke halaman login setelah logout
     navigate("/login");
   }, [onLogout, navigate]);

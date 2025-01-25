@@ -24,6 +24,23 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(null);
 
+   // Check localStorage for token when the app loads
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        // Decode the JWT to get the user's role
+        const decoded = JSON.parse(atob(token.split(".")[1]));
+        setIsLoggedIn(true);
+        setUserRole(decoded.role);
+      } catch (error) {
+        console.error("Error decoding token:", error);
+        setIsLoggedIn(false);
+        setUserRole(null);
+      }
+    }
+  }, []);
+
   const handleLogin = (role) => {
     setIsLoggedIn(true);
     setUserRole(role);
@@ -32,6 +49,7 @@ function App() {
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUserRole(null);
+    localStorage.removeItem("token"); // Clear token on logout
   };
 
   // Protected Route Component
