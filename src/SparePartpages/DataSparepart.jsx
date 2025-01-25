@@ -21,7 +21,7 @@ const Sparepart = () => {
   useEffect(() => {
     const fetchSpareparts = async () => {
       try {
-        const response = await axios.get("https://bengkel-mate-backend.vercel.app/api/spareparts"); // Replace with your API endpoint
+        const response = await axios.get("https://bengkel-mate-backend.vercel.app/api/sparepart_2"); // Replace with your API endpoint
         setSpareparts(
           response.data.spareparts.map((item) => ({
             id: item._id, // Map _id to id for DataGrid
@@ -42,7 +42,7 @@ const Sparepart = () => {
   // Handle delete action
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`https://bengkel-mate-backend.vercel.app/api/spareparts/${id}`); // Replace with your API endpoint
+      const response = await axios.delete(`https://bengkel-mate-backend.vercel.app/api/sparepart_2/${id}`); // Replace with your API endpoint
       if (response.status === 200) {
         setSpareparts((prev) => prev.filter((spareparts) => spareparts.id !== id));
         alert("Data berhasil dihapus!");
@@ -64,7 +64,7 @@ const Sparepart = () => {
   const handleSave = async (id) => {
     const editedSparepart = spareparts.find((spareparts) => spareparts.id === id);
     try {
-      const response = await axios.patch(`https://bengkel-mate-backend.vercel.app/api/spareparts/${id}`, {
+      const response = await axios.patch(`https://bengkel-mate-backend.vercel.app/api/sparepart_2/${id}`, {
         namaPart: editedSparepart.namaPart,
         number: editedSparepart.number,
         stock: editedSparepart.stock,
