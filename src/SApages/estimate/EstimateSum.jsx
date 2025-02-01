@@ -223,9 +223,9 @@ const addSparepart = () => {
               />
               {isServiceDropdownOpen && (
                 <ul className="dropdown">
-                  {selectedServices.map((item, index) => (
-                    <li key={index}>
-                      {item.name} - Rp {item.price.toLocaleString()} x {item.quantity}
+                  {filteredServices.map((service) => (
+                    <li key={service._id} onClick={() => handleServiceSelect(service)}>
+                      {service.namaLayanan}
                     </li>
                   ))}
                 </ul>
@@ -246,11 +246,11 @@ const addSparepart = () => {
               />
               {isSparepartDropdownOpen && (
                 <ul className="dropdown">
-                  {selectedSpareparts.map((item, index) => (
-                  <li key={index}>
-                    {item.name} - Rp {item.price.toLocaleString()} x {item.quantity}
-                  </li>
-                ))}
+                  {filteredSpareparts.map((part) => (
+                    <li key={part._id} onClick={() => handleSparepartSelect(part)}>
+                      {part.namaPart}
+                    </li>
+                  ))}
                 </ul>
               )}
               <button onClick={addSparepart}>Tambah Sparepart</button>
