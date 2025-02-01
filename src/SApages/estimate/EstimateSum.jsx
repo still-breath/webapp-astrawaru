@@ -24,6 +24,11 @@ const EstimateSum = () => {
   const [newService, setNewService] = useState({ name: "", price: 0, quantity: 1 });
   const [newSparepart, setNewSparepart] = useState({ name: "", price: 0, quantity: 1 });
 
+  const [searchService, setSearchService] = useState("");
+  const [searchSparepart, setSearchSparepart] = useState("");
+  const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false);
+  const [isSparepartDropdownOpen, setIsSparepartDropdownOpen] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -49,47 +54,49 @@ const EstimateSum = () => {
     setSelectedPkb(e.target.value);
   };
 
-  // Filter Dropdown Options Based on Input
-  const handleFilterChange = (e, type) => {
+  const handleSearchService = (e) => {
     const searchValue = e.target.value.toLowerCase();
-    if (type === "service") {
-      setNewService({ ...newService, name: searchValue });
-      setFilteredServices(
-        services.filter((service) =>
-          service.namaLayanan.toLowerCase().includes(searchValue)
-        )
-      );
-    } else if (type === "sparepart") {
-      setNewSparepart({ ...newSparepart, name: searchValue });
-      setFilteredSpareparts(
-        spareparts.filter((part) =>
-          part.namaPart.toLowerCase().includes(searchValue)
-        )
-      );
-    }
+    setSearchService(searchValue);
+    setFilteredServices(
+      services.filter((service) =>
+        service.namaLayanan.toLowerCase().includes(searchValue)
+      )
+    );
   };
 
-  const handleServiceSelect = (name) => {
-    const service = services.find((s) => s.namaLayanan === name);
-    setNewService({ name: service.namaLayanan, price: service.harga, quantity: 1 });
-    setFilteredServices(services);
+  const handleSearchSparepart = (e) => {
+    const searchValue = e.target.value.toLowerCase();
+    setSearchSparepart(searchValue);
+    setFilteredSpareparts(
+      spareparts.filter((part) =>
+        part.namaPart.toLowerCase().includes(searchValue)
+      )
+    );
   };
 
-  const handleSparepartSelect = (name) => {
-    const part = spareparts.find((p) => p.namaPart === name);
-    setNewSparepart({ name: part.namaPart, price: part.harga, quantity: 1 });
-    setFilteredSpareparts(spareparts);
+  const handleServiceSelect = (service) => {
+    setNewService({ ...newService, name: service.namaLayanan, price: service.harga });
+    setSearchService(service.namaLayanan);
+    setIsServiceDropdownOpen(false);
+  };
+
+  const handleSparepartSelect = (part) => {
+    setNewSparepart({ ...newSparepart, name: part.namaPart, price: part.harga });
+    setSearchSparepart(part.namaPart);
+    setIsSparepartDropdownOpen(false);
   };
 
   // Add Service and Sparepart
   const addService = () => {
     setSelectedServices([...selectedServices, newService]);
     setNewService({ name: "", price: 0, quantity: 1 });
+    setSearchService("");
   };
 
   const addSparepart = () => {
     setSelectedSpareparts([...selectedSpareparts, newSparepart]);
     setNewSparepart({ name: "", price: 0, quantity: 1 });
+    setSearchSparepart("");
   };
 
   // Generate PDF
@@ -216,26 +223,28 @@ const EstimateSum = () => {
         </div>
 
         <div className="operationAndMaterial">
-          {/* Layanan Section */}
           <div className="jasaOperasi">
             <h3>Jasa Operasi</h3>
             <div className="form">
               <input
                 type="text"
                 placeholder="Cari Layanan"
-                value={newService.name}
-                onChange={(e) => handleFilterChange(e, "service")}
+                value={searchService}
+                onChange={handleSearchService}
+                onFocus={() => setIsServiceDropdownOpen(true)}
               />
-              <ul className="dropdown">
-                {filteredServices.map((service) => (
-                  <li
-                    key={service._id}
-                    onClick={() => handleServiceSelect(service.namaLayanan)}
-                  >
-                    {service.namaLayanan}
-                  </li>
-                ))}
-              </ul>
+              {isServiceDropdownOpen && (
+                <ul className="dropdown">
+                  {filteredServices.map((service) => (
+                    <li
+                      key={service._id}
+                      onClick={() => handleServiceSelect(service)}
+                    >
+                      {service.namaLayanan}
+                    </li>
+                  ))}
+                </ul>
+              )}
               <input
                 type="number"
                 placeholder="Quantity"
@@ -256,26 +265,28 @@ const EstimateSum = () => {
             <h4>Total Jasa: Rp {jasaTotal}</h4>
           </div>
 
-          {/* Spareparts Section */}
           <div className="barangMaterial">
             <h3>Barang Material</h3>
             <div className="form">
               <input
                 type="text"
                 placeholder="Cari Sparepart"
-                value={newSparepart.name}
-                onChange={(e) => handleFilterChange(e, "sparepart")}
+                value={searchSparepart}
+                onChange={handleSearchSparepart}
+                onFocus={() => setIsSparepartDropdownOpen(true)}
               />
-              <ul className="dropdown">
-                {filteredSpareparts.map((part) => (
-                  <li
-                    key={part._id}
-                    onClick={() => handleSparepartSelect(part.namaPart)}
-                  >
-                    {part.namaPart}
-                  </li>
-                ))}
-              </ul>
+              {isSparepartDropdownOpen && (
+                <ul className="dropdown">
+                  {filteredSpareparts.map((part) => (
+                    <li
+                      key={part._id}
+                      onClick={() => handleSparepartSelect(part)}
+                    >
+                      {part.namaPart}
+                    </li>
+                  ))}
+                </ul>
+              )}
               <input
                 type="number"
                 placeholder="Quantity"
@@ -295,6 +306,16 @@ const EstimateSum = () => {
             </ul>
             <h4>Total Sparepart: Rp {sparepartTotal}</h4>
           </div>
+        </div>
+
+        <div className="summary">
+          <h3>Ringkasan</h3>
+          <div className="summary-content">
+            <p>Total Jasa: <span>Rp {jasaTotal}</span></p>
+            <p>Total Sparepart: <span>Rp {sparepartTotal}</span></p>
+            <p>Grand Total: <span>Rp {jasaTotal + sparepartTotal}</span></p>
+          </div>
+          <button className="submit-button" onClick={handleSubmit}>Simpan</button>
         </div>
       </div>
     </div>
