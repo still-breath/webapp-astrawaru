@@ -252,7 +252,7 @@ const EstimateSum = () => {
         </div>
 
         <div className="summary">
-          <h3>Total</h3>
+          <h3>Ringkasan</h3>
           <div className="summary-content">
             <p>Total Jasa: <span>Rp {selectedServices.reduce((sum, s) => sum + s.price * s.quantity, 0)}</span></p>
             <p>Total Sparepart: <span>Rp {selectedSpareparts.reduce((sum, sp) => sum + sp.price * sp.quantity, 0)}</span></p>
