@@ -75,20 +75,27 @@ const EstimateSum = () => {
   };
 
   const addService = () => {
-    if (newService.name) {
-      setSelectedServices([...selectedServices, newService]);
-      setNewService({ name: "", price: 0, quantity: 1 });
-      setSearchService("");
-    }
-  };
+  if (newService.name) {
+    setSelectedServices([
+      ...selectedServices,
+      { name: newService.name, price: newService.price, quantity: newService.quantity }
+    ]);
+    setNewService({ name: "", price: 0, quantity: 1 });
+    setSearchService("");
+  }
+};
 
-  const addSparepart = () => {
-    if (newSparepart.name) {
-      setSelectedSpareparts([...selectedSpareparts, newSparepart]);
-      setNewSparepart({ name: "", price: 0, quantity: 1 });
-      setSearchSparepart("");
-    }
-  };
+const addSparepart = () => {
+  if (newSparepart.name) {
+    setSelectedSpareparts([
+      ...selectedSpareparts,
+      { name: newSparepart.name, price: newSparepart.price, quantity: newSparepart.quantity }
+    ]);
+    setNewSparepart({ name: "", price: 0, quantity: 1 });
+    setSearchSparepart("");
+  }
+};
+
 
   // Generate PDF
   const generatePDF = async () => {
@@ -216,9 +223,9 @@ const EstimateSum = () => {
               />
               {isServiceDropdownOpen && (
                 <ul className="dropdown">
-                  {filteredServices.map((service) => (
-                    <li key={service._id} onClick={() => handleServiceSelect(service)}>
-                      {service.namaLayanan}
+                  {selectedServices.map((item, index) => (
+                    <li key={index}>
+                      {item.name} - Rp {item.price.toLocaleString()} x {item.quantity}
                     </li>
                   ))}
                 </ul>
@@ -239,11 +246,11 @@ const EstimateSum = () => {
               />
               {isSparepartDropdownOpen && (
                 <ul className="dropdown">
-                  {filteredSpareparts.map((part) => (
-                    <li key={part._id} onClick={() => handleSparepartSelect(part)}>
-                      {part.namaPart}
-                    </li>
-                  ))}
+                  {selectedSpareparts.map((item, index) => (
+                  <li key={index}>
+                    {item.name} - Rp {item.price.toLocaleString()} x {item.quantity}
+                  </li>
+                ))}
                 </ul>
               )}
               <button onClick={addSparepart}>Tambah Sparepart</button>
