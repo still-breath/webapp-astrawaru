@@ -14,7 +14,16 @@ const PKB = () => {
     const fetchPkbData = async () => {
       try {
         const response = await axios.get("https://bengkel-mate-backend.vercel.app/api/pkb");
-        setPkbData(response.data.pkbs || []);
+        // Filter data to exclude rows with null or undefined fields
+        const filteredData = response.data.pkbs.filter(
+          (pkb) =>
+            pkb.noPkb &&
+            pkb.customer?.nama &&
+            pkb.vehicle?.noRangka &&
+            pkb.responsMekanik &&
+            pkb.tanggalWaktu
+        );
+        setPkbData(filteredData || []);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching PKB data:", error);
@@ -33,14 +42,14 @@ const PKB = () => {
     { field: "responsMekanik", headerName: "Respons Mekanik", width: 300, align: "left" },
     { field: "tanggalWaktu", headerName: "Tanggal", width: 150 },
     {
-        field: "action",
-        headerName: "Actions",
-        width: 120,
-        renderCell: (params) => (
-            <Link to={`/pkb/${params.row.noPkb}`}>
-            <button className="detailButton">Detail</button>
-            </Link>
-        ),
+      field: "action",
+      headerName: "Actions",
+      width: 120,
+      renderCell: (params) => (
+        <Link to={`/pkb/${params.row.noPkb}`}>
+          <button className="detailButton">Detail</button>
+        </Link>
+      ),
     },
   ];
 
