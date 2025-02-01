@@ -7,6 +7,8 @@ import "jspdf-autotable";
 import "./estimateSum.scss";
 
 const EstimateSum = () => {
+  const [summary, setSummary] = useState(null);
+
   const [pkbList, setPkbList] = useState([]);
   const [selectedPkb, setSelectedPkb] = useState("");
 
