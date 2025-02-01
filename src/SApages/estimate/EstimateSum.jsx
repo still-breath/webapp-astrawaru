@@ -213,26 +213,46 @@ const addSparepart = () => {
         <div className="operationAndMaterial">
           <div className="jasaOperasi">
             <h3>Jasa Operasi</h3>
-            <div className="form">
-              <input
-                type="text"
-                placeholder="Cari Layanan"
-                value={searchService}
-                onChange={handleSearchService}
-                onFocus={() => setIsServiceDropdownOpen(true)}
-              />
-              {isServiceDropdownOpen && (
-                <ul className="dropdown">
-                  {filteredServices.map((service) => (
-                    <li key={service._id} onClick={() => handleServiceSelect(service)}>
-                      {service.namaLayanan}
-                    </li>
-                  ))}
-                </ul>
-              )}
-              <button onClick={addService}>Tambah Jasa</button>
+              <div className="form">
+                <input
+                  type="text"
+                  placeholder="Cari Layanan"
+                  value={searchService}
+                  onChange={handleSearchService}
+                  onFocus={() => setIsServiceDropdownOpen(true)}
+                />
+                {isServiceDropdownOpen && (
+                  <ul className="dropdown">
+                    {filteredServices.map((service) => (
+                      <li key={service._id} onClick={() => handleServiceSelect(service)}>
+                        {service.namaLayanan}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                <input
+                  type="number"
+                  placeholder="Quantity"
+                  value={newService.quantity}
+                  onChange={(e) =>
+                    setNewService({
+                      ...newService,
+                      quantity: parseInt(e.target.value) || 1,
+                    })
+                  }
+                />
+                <button onClick={addService}>Tambah Jasa</button>
+              </div>
+              <ul>
+                {selectedServices.map((item, index) => (
+                  <li key={index}>
+                    {item.name} - Rp {item.price.toLocaleString()} x {item.quantity} = Rp{" "}
+                    {(item.price * item.quantity).toLocaleString()}
+                  </li>
+                ))}
+              </ul>
+              <h4>Total Jasa: Rp {jasaTotal.toLocaleString()}</h4>
             </div>
-          </div>
 
           <div className="barangMaterial">
             <h3>Barang Material</h3>
@@ -253,8 +273,28 @@ const addSparepart = () => {
                   ))}
                 </ul>
               )}
+              <input
+                type="number"
+                placeholder="Quantity"
+                value={newSparepart.quantity}
+                onChange={(e) =>
+                  setNewSparepart({
+                    ...newSparepart,
+                    quantity: parseInt(e.target.value) || 1,
+                  })
+                }
+              />
               <button onClick={addSparepart}>Tambah Sparepart</button>
             </div>
+            <ul>
+              {selectedSpareparts.map((item, index) => (
+                <li key={index}>
+                  {item.name} - Rp {item.price.toLocaleString()} x {item.quantity} = Rp{" "}
+                  {(item.price * item.quantity).toLocaleString()}
+                </li>
+              ))}
+            </ul>
+            <h4>Total Sparepart: Rp {sparepartTotal.toLocaleString()}</h4>
           </div>
         </div>
 
