@@ -30,7 +30,7 @@ const EstimateSum = () => {
         const [pkbResponse, layananResponse, sparepartResponse] = await Promise.all([
           axios.get("https://bengkel-mate-backend.vercel.app/api/pkb"),
           axios.get("https://bengkel-mate-backend.vercel.app/api/layanan"),
-          axios.get("https://bengkel-mate-backend.vercel.app/api/sparepart_2"),
+          axios.get("https://bengkel-mate-backend.vercel.app/api/spareparts"),
         ]);
         setPkbList(pkbResponse.data.pkbs || []);
         setServices(layananResponse.data.layanan || []);
