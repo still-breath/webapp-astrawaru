@@ -303,6 +303,7 @@ const addSparepart = () => {
           <div className="summary-content">
             <p>Total Jasa: <span>Rp {selectedServices.reduce((sum, s) => sum + s.price * s.quantity, 0)}</span></p>
             <p>Total Sparepart: <span>Rp {selectedSpareparts.reduce((sum, sp) => sum + sp.price * sp.quantity, 0)}</span></p>
+            <p>Grand Total: <span>Rp {(selectedServices.reduce((sum, s) => sum + s.price * s.quantity, 0) + selectedSpareparts.reduce((sum, sp) => sum + sp.price * sp.quantity, 0)).toLocaleString()}</span></p>
           </div>
           <button className="submit-button" onClick={handleSubmit}>Simpan</button>
         </div>
