@@ -508,7 +508,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 <td align="center">
 <h4>🎨 System Analyst</h4>
 <p><strong>Team Member #3</strong></p>
-<p><em>System Design | Quality Assurance</em></p>
+<p><em>Flutter Specialist | Mobile App Developer</em></p>
 <p>
 <img height="20" src="https://img.shields.io/badge/Role-System_Design-ff6b6b?style=for-the-badge" alt="system design"/>
 </p>
