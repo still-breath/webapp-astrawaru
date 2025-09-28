@@ -62,9 +62,6 @@ Frameworks, Libraries, and Tools used in this project:
 <a target="_blank" href="https://sass-lang.com/">
 <img height="30" src="https://img.shields.io/badge/SCSS-CC6699?style=for-the-badge&logo=sass&logoColor=white" alt="SCSS"/>
 </a>
-<a target="_blank" href="https://vitejs.dev/">
-<img height="30" src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite"/>
-</a>
 </p>
 
 ### 📱 Mobile
@@ -182,7 +179,6 @@ Frameworks, Libraries, and Tools used in this project:
 - **Authentication**: JWT-based security with role management
 - **State Management**: React Context API and custom hooks
 - **Real-time Updates**: WebSocket integration for live updates
-- **Build Tool**: Vite for fast development and building
 
 ---
 
@@ -322,10 +318,6 @@ cp .env.example .env.local
 ```bash
 # Edit .env.local file
 nano .env.local
-
-# Required environment variables:
-VITE_API_BASE_URL=http://localhost:5000/api
-VITE_APP_TITLE=Spare Parts Management System
 ```
 
 #### 7. Mobile App Setup (Optional)
@@ -401,7 +393,6 @@ webapp-astrawaru/
 │   │   ├── styles/         # SCSS stylesheets
 │   │   └── main.jsx        # Application entry point
 │   ├── public/             # Static assets
-│   ├── vite.config.js      # Vite configuration
 │   └── package.json
 ├── mobile/
 │   ├── lib/
@@ -418,13 +409,6 @@ webapp-astrawaru/
 ```
 
 ### 🔑 Default Login Credentials
-
-#### Satpam (Security Guard)
-```
-Email: satpam@company.com
-Password: satpam123
-Role: security
-```
 
 #### Service Advisor
 ```
@@ -457,7 +441,6 @@ This project was developed as a **collaborative team effort** with three special
   - State management and React hooks
   - API integration and data flow
   - User authentication and role-based routing
-  - Vite build configuration and optimization
 
 #### **Backend Developer**
 - **Role**: Node.js/Express API Development
@@ -542,7 +525,6 @@ When reporting issues, please include:
 #### Frontend Web Issues:
 - **Component not rendering**: Check React component lifecycle and state management
 - **API calls failing**: Verify backend server status and CORS configuration
-- **SCSS compilation**: Check Vite configuration and SCSS syntax
 - **Responsive design issues**: Test on different screen sizes and browsers
 
 #### Mobile App Issues:
